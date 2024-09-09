@@ -1,6 +1,7 @@
 package verboten
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -9,6 +10,7 @@ import (
 	"github.com/reiver/go-errhttp"
 	"github.com/reiver/go-json"
 
+	"github.com/reiver/batfeed/srv/db"
 	"github.com/reiver/batfeed/srv/http"
 	. "github.com/reiver/batfeed/srv/log"
 )
@@ -47,58 +49,72 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var tcpaddr string
+	var host string
 	{
-		tcpaddr = request.Host
-		if "" == tcpaddr {
+		host = request.Host
+		if "" == host {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
-			Logf("[serve-http][path=%q] empty tcpaddr (%q)", path, tcpaddr)
+			Logf("[serve-http][path=%q] empty host (%q)", path, host)
 			return
 		}
 	}
 
-	var host string
+	var domain string
 	{
-		index := strings.LastIndexByte(tcpaddr, ':')
+		index := strings.LastIndexByte(host, ':')
 		if 0 <= index {
-			host = tcpaddr[:index]
+			domain = host[:index]
 		}
 	}
 
-	var diduri string
+	var thedid string
 	{
 		const method string = "web"
-		var identifier string = host
+		var identifier string = domain
 
-		thedid, err := did.ConstructDID(method, identifier)
+		didObj, err := did.ConstructDID(method, identifier)
 		if nil != err {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
 			Logf("[serve-http][path=%q] problem constructing did-uri with method=%q and identifier=%q: %s", path, method, identifier, err)
 			return
 		}
 
-		diduri = thedid.String()
+		thedid = didObj.String()
 	}
 
-	type feed struct {
+	type feedType struct {
 		URI string `json:"uri"`
 	}
 
-	var feeds []feed
+	var feeds []feedType
 	{
-				
-//@TODO
-				
+		names, err := dbsrv.Feeds(domain)
+		if nil != err {
+			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
+			Logf("[serve-http][path=%q] problem getting feeds for domain=%q: %s", path, domain, err)
+			return
+		}
+
+		for _, name := range names {
+//@TODO: Maybe construct this URI another way.
+			var uri string = fmt.Sprintf("at://%s/app.bsky.feed.generator/%s", thedid, name)
+
+			var feed feedType = feedType{
+				URI: uri,
+			}
+
+			feeds = append(feeds, feed)
+		}
 	}
 
 	var bytes []byte
 	{
 
 		response := struct {
-			DID     string  `json:"did"`
-			Feeds []feed    `json:feeds`
+			DID     string   `json:"did"`
+			Feeds []feedType `json:feeds`
 		}{
-			DID: diduri,
+			DID: thedid,
 			Feeds: feeds,
 		}
 
