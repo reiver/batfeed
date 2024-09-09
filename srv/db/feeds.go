@@ -5,8 +5,6 @@ import (
 
 	"github.com/reiver/go-erorr"
 	_ "modernc.org/sqlite"
-
-	. "github.com/reiver/batfeed/srv/log"
 )
 
 func Feeds(domain string) ([]string, error) {
