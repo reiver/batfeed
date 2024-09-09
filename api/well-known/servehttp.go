@@ -1,8 +1,10 @@
 package verboten
 
 import (
+	"fmt"
 	"net/http"
 
+	"github.com/reiver/go-did"
 	"github.com/reiver/go-erorr"
 	"github.com/reiver/go-errhttp"
 	"github.com/reiver/go-json"
@@ -45,15 +47,27 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var diduri string
+	var host string
 	{
-		diduri = "did:web:example.com"
+		host = "example.com"
 	}
 
-	var serviceEndpoint string
+	var diduri string
 	{
-		serviceEndpoint = "http://example.com"
+		const method string = "web"
+		var identifier string = host
+
+		thedid, err := did.ConstructDID(method, identifier)
+		if nil != err {
+			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
+			Logf("[serve-http][path=%q] problem constructing did-uri with method=%q and identifier=%q: %s", path, method, identifier, err)
+			return
+		}
+
+		diduri = thedid.String()
 	}
+
+	var serviceEndpoint string = fmt.Sprintf("https://%s", host)
 
 	var bytes []byte
 	{
