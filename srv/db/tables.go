@@ -28,6 +28,7 @@ func initTables(database *sql.DB) error {
 		`CREATE TABLE IF NOT EXISTS feeds`            +"\n"+
 		`( id      INTEGER PRIMARY KEY`               +"\n"+
 		`, user_id INTEGER NOT NULL`                  +"\n"+
+		`, name     TEXT   UNIQUE NOT NULL`           +"\n"+
 		`, FOREIGN KEY(user_id) REFERENCES users(id)` +"\n"+
 		`)`
 		tables = append(tables, table)
