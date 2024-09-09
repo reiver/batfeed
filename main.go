@@ -9,14 +9,19 @@ import (
 
 	// import these package so their init() fuctions and other initializers run.
 	_ "github.com/reiver/batfeed/api"
+
+	// Do this so we get errors early.
+	_ "github.com/reiver/batfeed/srv/db"
 )
 
-func main() {
+func init() {
 	Log("-<([ hello world ])>-")
 	Log()
 	Log("batfeed")
 	Log()
+}
 
+func main() {
 	var tcpport string = tcpPort()
 	Logf("tcp-port = %q", tcpport)
 
