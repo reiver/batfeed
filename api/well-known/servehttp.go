@@ -3,6 +3,7 @@ package verboten
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/reiver/go-did"
 	"github.com/reiver/go-erorr"
@@ -47,9 +48,22 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	var tcpaddr string
+	{
+		tcpaddr = request.Host
+		if "" == tcpaddr {
+			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
+			Logf("[serve-http][path=%q] empty tcpaddr (%q)", path, tcpaddr)
+			return
+		}
+	}
+
 	var host string
 	{
-		host = "example.com"
+		index := strings.LastIndexByte(tcpaddr, ':')
+		if 0 <= index {
+			host = tcpaddr[:index]
+		}
 	}
 
 	var diduri string
@@ -67,7 +81,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		diduri = thedid.String()
 	}
 
-	var serviceEndpoint string = fmt.Sprintf("https://%s", host)
+	var serviceEndpoint string = fmt.Sprintf("https://%s", tcpaddr)
 
 	var bytes []byte
 	{
