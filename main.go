@@ -13,6 +13,7 @@ func main() {
 	defer log.End()
 
 	log.Inform("BatFeed ⚡")
+	shout()
 
 	log.Inform("Here we go…")
 	webserve()
