@@ -8,7 +8,7 @@ import (
 	"github.com/reiver/batfeed/srv/log"
 
 	// import these package so their init() fuctions and other initializers run.
-	_ "github.com/reiver/batfeed/api"
+	_ "github.com/reiver/batfeed/www"
 
 	// Do this so we get errors early.
 	_ "github.com/reiver/batfeed/srv/db"
