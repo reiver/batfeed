@@ -3,12 +3,16 @@ package dbsrv
 import (
 	"database/sql"
 
-	. "github.com/reiver/batfeed/srv/log"
+	"github.com/reiver/batfeed/srv/log"
 )
 
 func initTables(database *sql.DB) error {
+	log := logsrv.Prefix("dbsrv")
+	log.Begin()
+	defer log.End()
+
 	if nil == database {
-		Logf("[dbsrv] problem initialzing tables: %s", errNilDB)
+		log.Errorf("problem initialzing tables: %s", errNilDB)
 		return errNilDB
 	}
 
@@ -35,7 +39,7 @@ func initTables(database *sql.DB) error {
 	}
 
 	for _, createTable := range tables {
-		Logf("TABLE:\n%s", createTable)
+		log.Debugf("TABLE:\n%s", createTable)
 
 		if _, err := database.Exec(createTable); nil != err {
 			return err
