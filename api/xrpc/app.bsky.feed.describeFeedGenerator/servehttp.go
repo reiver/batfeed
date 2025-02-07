@@ -12,32 +12,39 @@ import (
 
 	"github.com/reiver/batfeed/srv/db"
 	"github.com/reiver/batfeed/srv/http"
-	. "github.com/reiver/batfeed/srv/log"
+	"github.com/reiver/batfeed/srv/log"
 )
 
 const path string = "/xrpc/app.bsky.feed.describeFeedGenerator"
 
 func init() {
+	log := logsrv.Prefix("("+path+").init")
+	log.Begin()
+	defer log.End()
+
 	var handler http.Handler = http.HandlerFunc(serveHTTP)
 
 	err := httpsrv.Mux.HandlePath(handler, path)
 	if nil != err {
 		e := erorr.Errorf("problem registering http-handler with path-mux for path %q: %w", path, err)
-		Log(e)
+		log.Error(e)
 		panic(e)
 	}
 }
 
 func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
+	log := logsrv.Prefix("("+path+")")
+	log.Begin()
+	defer log.End()
 
 	if nil == responsewriter {
-		Logf("[serve-http][path=%q] nil http.ResponseWriter", path)
+		log.Error("nil response-writer")
 		return
 	}
 
 	if nil == request {
 		errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
-		Logf("[serve-http][path=%q] nil *http.Request", path)
+		log.Error("nil http-request")
 		return
 	}
 
@@ -45,7 +52,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 
 	if http.MethodGet != method {
 		errhttp.ErrHTTPMethodNotAllowed.ServeHTTP(responsewriter, request)
-		Logf("[serve-http][path=%q] bad HTTP method: %q", path, method)
+		log.Errorf("bad HTTP method: %q", method)
 		return
 	}
 
@@ -54,7 +61,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		host = request.Host
 		if "" == host {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
-			Logf("[serve-http][path=%q] empty host (%q)", path, host)
+			log.Errorf("empty host (%q)", host)
 			return
 		}
 	}
@@ -75,7 +82,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		didObj, err := did.ConstructDID(method, identifier)
 		if nil != err {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
-			Logf("[serve-http][path=%q] problem constructing did-uri with method=%q and identifier=%q: %s", path, method, identifier, err)
+			log.Errorf("problem constructing did-uri with method=%q and identifier=%q: %s", method, identifier, err)
 			return
 		}
 
@@ -91,7 +98,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		names, err := dbsrv.Feeds(domain)
 		if nil != err {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
-			Logf("[serve-http][path=%q] problem getting feeds for domain=%q: %s", path, domain, err)
+			log.Errorf("problem getting feeds for domain=%q: %s", domain, err)
 			return
 		}
 
@@ -122,7 +129,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		bytes, err = json.Marshal(response)
 		if nil != err {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
-			Logf("[serve-http][path=%q] problem marshaling JSON: %s", path, err)
+			log.Errorf("problem marshaling JSON: %s", err)
 			return
 		}
 	}
@@ -133,7 +140,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
 		_, err := responsewriter.Write(bytes)
 		if nil != err {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request)
-			Logf("[serve-http][path=%q] problem sending bytes to client: %s", path, err)
+			log.Errorf("problem sending bytes to client: %s", err)
 			return
 		}
 	}
