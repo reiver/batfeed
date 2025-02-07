@@ -18,7 +18,7 @@ import (
 const path string = "/xrpc/app.bsky.feed.describeFeedGenerator"
 
 func init() {
-	log := logsrv.Prefix("("+path+").init")
+	log := logsrv.Prefix("www("+path+").init")
 	log.Begin()
 	defer log.End()
 
@@ -33,7 +33,7 @@ func init() {
 }
 
 func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
-	log := logsrv.Prefix("("+path+")")
+	log := logsrv.Prefix("www("+path+").serveHTTP")
 	log.Begin()
 	defer log.End()
 
