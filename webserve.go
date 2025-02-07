@@ -10,8 +10,7 @@ import (
 )
 
 func webserve() {
-	log := logsrv.Prefix("webserve")
-	log.Begin()
+	log := logsrv.Prefix("webserve").Begin()
 	defer log.End()
 
 	var tcpaddr string = cfg.WebServerTCPAddress()

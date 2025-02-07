@@ -14,8 +14,7 @@ var db *sql.DB
 
 func initDB(filename string) (*sql.DB, error) {
 
-	log := logsrv.Prefix("dbsrv")
-	log.Begin()
+	log := logsrv.Prefix("dbsrv").Begin()
 	defer log.End()
 
 	var database *sql.DB

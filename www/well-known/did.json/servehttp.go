@@ -17,8 +17,7 @@ import (
 const path string = "/.well-known/did.json"
 
 func init() {
-	log := logsrv.Prefix("www("+path+").init")
-	log.Begin()
+	log := logsrv.Prefix("www("+path+").init").Begin()
 	defer log.End()
 
 	var handler http.Handler = http.HandlerFunc(serveHTTP)
@@ -32,8 +31,7 @@ func init() {
 }
 
 func serveHTTP(responsewriter http.ResponseWriter, request *http.Request) {
-	log := logsrv.Prefix("www("+path+").serveHTTP")
-	log.Begin()
+	log := logsrv.Prefix("www("+path+").serveHTTP").Begin()
 	defer log.End()
 
 	if nil == responsewriter {

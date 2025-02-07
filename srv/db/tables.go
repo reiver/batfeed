@@ -7,8 +7,7 @@ import (
 )
 
 func initTables(database *sql.DB) error {
-	log := logsrv.Prefix("dbsrv")
-	log.Begin()
+	log := logsrv.Prefix("dbsrv").Begin()
 	defer log.End()
 
 	if nil == database {
