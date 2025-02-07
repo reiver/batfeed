@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/reiver/batfeed/srv/http"
-	. "github.com/reiver/batfeed/srv/log"
+	"github.com/reiver/batfeed/srv/log"
 
 	// import these package so their init() fuctions and other initializers run.
 	_ "github.com/reiver/batfeed/api"
@@ -15,29 +15,37 @@ import (
 )
 
 func init() {
-	Log("-<([ hello world ])>-")
-	Log()
-	Log("batfeed")
-	Log()
+	log := logsrv.Prefix("main.init")
+	log.Begin()
+	defer log.End()
+
+	log.Inform("-<([ hello world ])>-")
+	log.Inform()
+	log.Inform("batfeed")
+	log.Inform()
 }
 
 func main() {
+	log := logsrv.Prefix("main")
+	log.Begin()
+	defer log.End()
+
 	var tcpport string = tcpPort()
-	Logf("tcp-port = %q", tcpport)
+	log.Informf("tcp-port = %q", tcpport)
 
 	var addr string = fmt.Sprintf(":%s", tcpport)
-	Logf("tcp-address = %q", addr)
+	log.Informf("tcp-address = %q", addr)
 
 	var handler http.Handler = &httpsrv.Mux
 
 	{
-		Log()
-		Log("Here we go…")
+		log.Inform()
+		log.Inform("Here we go…")
 		err := http.ListenAndServe(addr, handler)
 		if nil != err {
-			Logf("ERROR: HTTP server had problem listening-and-serving: %s", err)
+			log.Errorf("ERROR: HTTP server had problem listening-and-serving: %s", err)
 			return
 		}
-		Log("beware i live")
+		log.Inform("beware i live")
 	}
 }
