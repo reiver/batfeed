@@ -24,7 +24,7 @@ func initDB(filename string) (*sql.DB, error) {
 		var err error
 		database, err = sql.Open("sqlite", filename)
 		if nil != err {
-			log.Errorf("FAILURE — could not open database file %q: %w", filename, err)
+			log.Errorf("FAILURE — could not open database file %q: %s", filename, err)
 			return nil, erorr.Errorf("dbsrv: problem opening SQLite database file %q: %w", filename, err)
 		}
 		if nil == database {
