@@ -1,12 +1,16 @@
 package libfeeds
 
 import (
+	"fmt"
 	"io/fs"
 	"path/filepath"
+	"os"
+	"slices"
 
 	"github.com/reiver/go-erorr"
 	libpath "github.com/reiver/go-path"
-	"os"
+
+	"github.com/reiver/batfeed/lib/order"
 )
 
 const (
@@ -20,12 +24,47 @@ type Feed struct {
 	filesystem fs.FS
 }
 
-// Len returns the number of items in ths feed.
-func (receiver Feed) Len() (uint64, error) {
-
+func (receiver Feed) allFileNames() ([]string, error) {
 	var pattern string = libpath.Join(receiver.root, receiver.name, "*.url")
 
 	filenames, err := filepath.Glob(pattern)
+	if nil != err {
+		var nada []string
+		return nada, erorr.Errorf("libfeed: problem getting glob %q: %w", err)
+	}
+
+	return filenames, nil
+}
+
+func (receiver Feed) FileNames(order string, limit uint64) ([]string, error) {
+
+	filenames, err := receiver.allFileNames()
+	if nil != err {
+		var nada []string
+		return nada, err
+	}
+
+	switch order {
+	case liborder.OrderAscending:
+		// nothing here
+	case liborder.OrderDescending:
+		slices.Reverse(filenames)
+	default:
+		panic(fmt.Sprintf("libfeed: unsupported order: %q", order))
+	}
+
+	if int(limit) < len(filenames) {
+		filenames = filenames[:int(limit)]
+	}
+
+	return filenames, nil
+}
+
+
+// Len returns the number of items in ths feed.
+func (receiver Feed) Len() (uint64, error) {
+
+	filenames, err := receiver.allFileNames()
 	if nil != err {
 		var nada uint64
 		return nada, err
