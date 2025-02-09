@@ -102,7 +102,7 @@ func serveHTTP(responsewriter http.ResponseWriter, request *httpsrv.Parameterize
 				Scheme: "https",
 				Host:   host,
 				Path:   libpath.Join(httprequesturl.Path, "page"),
-				RawQuery: "order=", + liborder.OrderDescending,
+				RawQuery: "order=" + liborder.OrderDescending,
 			}
 
 			var last = liburl.URL{
