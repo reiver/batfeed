@@ -12,6 +12,7 @@ import (
 	libpath "github.com/reiver/go-path"
 
 	"github.com/reiver/batfeed/lib/feeds"
+	"github.com/reiver/batfeed/lib/order"
 	"github.com/reiver/batfeed/srv/feed"
 	"github.com/reiver/batfeed/srv/http"
 	"github.com/reiver/batfeed/srv/log"
@@ -101,14 +102,14 @@ func serveHTTP(responsewriter http.ResponseWriter, request *httpsrv.Parameterize
 				Scheme: "https",
 				Host:   host,
 				Path:   libpath.Join(httprequesturl.Path, "page"),
-				RawQuery: "order=descending",
+				RawQuery: "order=", + liborder.OrderDescending,
 			}
 
 			var last = liburl.URL{
 				Scheme: "https",
 				Host:   host,
 				Path:   libpath.Join(httprequesturl.Path, "page"),
-				RawQuery: "order=ascending",
+				RawQuery: "order=" + liborder.OrderAscending,
 			}
 
 			var outbox = liburl.URL{
