@@ -23,7 +23,9 @@ type Feed struct {
 // Len returns the number of items in ths feed.
 func (receiver Feed) Len() (uint64, error) {
 
-	filenames, err := filepath.Glob("*.url")
+	var pattern string = libpath.Join(receiver.root, receiver.name, "*.url")
+
+	filenames, err := filepath.Glob(pattern)
 	if nil != err {
 		var nada uint64
 		return nada, err
