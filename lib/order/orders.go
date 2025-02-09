@@ -1,7 +1,7 @@
 package liborder
 
 const (
-	OrderAscending = "ascending"
+	OrderAscending  = "ascending"
 	OrderDescending = "descending"
 )
 
