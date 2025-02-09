@@ -5,7 +5,7 @@ const (
 	OrderDescending = "descending"
 )
 
-func ValidOrder(order string) bool {
+func IsValidOrder(order string) bool {
 	switch order{
 	case OrderAscending:
 		return true
