@@ -30,7 +30,7 @@ func (receiver Feed) allFileNames() ([]string, error) {
 	filenames, err := filepath.Glob(pattern)
 	if nil != err {
 		var nada []string
-		return nada, erorr.Errorf("libfeed: problem getting glob %q: %w", err)
+		return nada, erorr.Errorf("libfeed: problem getting glob %q: %w", pattern, err)
 	}
 
 	return filenames, nil
@@ -71,6 +71,10 @@ func (receiver Feed) Len() (uint64, error) {
 	}
 
 	return uint64(len(filenames)), nil
+}
+
+func (receiver Feed) Path() string {
+	return feedPath(receiver.root, receiver.name)
 }
 
 // Post adds a new item to a feed.
