@@ -6,6 +6,9 @@ import (
 	"unsafe"
 )
 
+// Slug returns the 'slug' based on the filename part of the `path`.
+//
+// If `path` contains a directory path, the directory part is removed.
 func Slug(path string) string {
 
 	{
