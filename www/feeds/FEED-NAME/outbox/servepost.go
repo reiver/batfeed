@@ -1,9 +1,12 @@
 package verboten
 
 import (
+	gojson "encoding/json"
+	"io"
 	"net/http"
 	liburl "net/url"
 
+	"github.com/reiver/go-asns"
 	"github.com/reiver/go-errhttp"
 	"github.com/reiver/go-http201"
 	"github.com/reiver/go-http400"
@@ -63,7 +66,7 @@ func servePOST(responsewriter http.ResponseWriter, request *httpsrv.Parameterize
 		}
 	}
 
-	var internalFileName string
+	var objecturl string
 	switch contentType {
 	case `application/x-www-form-urlencoded`:
 		err := httprequest.ParseForm()
@@ -80,66 +83,109 @@ func servePOST(responsewriter http.ResponseWriter, request *httpsrv.Parameterize
 			return
 		}
 
-		var url string
-		if "" == url {
-			url = form.Get("object")
+		if "" == objecturl {
+			objecturl = form.Get("object")
 		}
-		if "" == url {
-			url = form.Get("ref")
+		if "" == objecturl {
+			objecturl = form.Get("ref")
 		}
-		if "" == url {
-			url = form.Get("uri")
+		if "" == objecturl {
+			objecturl = form.Get("uri")
 		}
-		if "" == url {
-			url = form.Get("url")
+		if "" == objecturl {
+			objecturl = form.Get("url")
 		}
-		if "" == url {
+		if "" == objecturl {
 			http400.BadRequest(responsewriter, request.HTTPRequest())
-			log.Debugf("bad object url: %s", url)
-			return
-		}
-		log.Debugf("object url = %q", url)
-
-		{
-			urloc, err := liburl.Parse(url)
-			if nil != err {
-				http400.BadRequest(responsewriter, request.HTTPRequest())
-				log.Debugf("problem parsing url %q: %s", url, err)
-				return
-			}
-			if nil == urloc {
-				errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request.HTTPRequest())
-				log.Error("nil parsed-url")
-				return
-			}
-
-			switch urloc.Scheme {
-			case "http","https":
-				// nothing here
-			default:
-				http400.BadRequest(responsewriter, request.HTTPRequest())
-				log.Debugf("problem parsing url %q: %s", url, err)
-				return
-			}
-
-		}
-
-		internalFileName, err = feed.Post(url)
-		if nil != err {
-			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request.HTTPRequest())
-			log.Errorf("problem posting URL %q to feed %q: %s", url, feedname, err)
+			log.Debugf("bad object url: %s", objecturl)
 			return
 		}
 	case `application/activity+json`, `application/ld+json; profile="https://www.w3.org/ns/activitystreams"`:
-					
-			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request.HTTPRequest())
-			log.Error("TODO: `application/activity+json support")
+		var bytes []byte
+		{
+			var err error
+			bytes, err = io.ReadAll(httprequest.Body)
+			if nil != err {
+				errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request.HTTPRequest())
+				log.Error("problem reading-all http-request-body")
+				return
+			}
+			httprequest.Body.Close()
+		}
+
+		var data map[string]string = map[string]string{}
+
+		err := gojson.Unmarshal(bytes, &data)
+		if nil != err {
+			http400.BadRequest(responsewriter, request.HTTPRequest())
+			log.Debugf("problem unmarshaling JSON: %s", err)
 			return
-					
+		}
+
+		var typefield string
+		{
+			var found bool
+			typefield, found = data["type"]
+			if !found {
+				http400.BadRequest(responsewriter, request.HTTPRequest())
+				log.Debug("missing type")
+				return
+			}
+			if asns.ActivityTypeAnnounce != typefield {
+				http400.BadRequest(responsewriter, request.HTTPRequest())
+				log.Debug("missing type")
+				return
+			}
+		}
+
+		{
+			var found bool
+			objecturl, found = data["object"]
+			if !found {
+				http400.BadRequest(responsewriter, request.HTTPRequest())
+				log.Debug("missing object-url")
+				return
+			}
+		}
 	default:
 			http400.BadRequest(responsewriter, request.HTTPRequest())
 			log.Debugf("unsupported Content-Type: %q", contentType)
 			return
+	}
+	log.Debugf("object-url = %q", objecturl)
+	{
+		urloc, err := liburl.Parse(objecturl)
+		if nil != err {
+			http400.BadRequest(responsewriter, request.HTTPRequest())
+			log.Debugf("problem parsing url %q: %s", objecturl, err)
+			return
+		}
+		if nil == urloc {
+			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request.HTTPRequest())
+			log.Error("nil parsed-url")
+			return
+		}
+
+		switch urloc.Scheme {
+		case "http","https":
+			// nothing here
+		default:
+			http400.BadRequest(responsewriter, request.HTTPRequest())
+			log.Debugf("problem parsing url %q: %s", objecturl, err)
+			return
+		}
+	}
+
+	var internalFileName string
+	{
+		var err error
+		internalFileName, err = feed.Post(objecturl)
+		if nil != err {
+			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request.HTTPRequest())
+			log.Errorf("problem posting object-URL %q to feed %q: %s", objecturl, feedname, err)
+			return
+		}
+
 	}
 	log.Debugf("internal-file-name: %q", internalFileName)
 
