@@ -10,7 +10,7 @@ import (
 	"github.com/reiver/go-erorr"
 	libpath "github.com/reiver/go-path"
 
-	"github.com/reiver/batfeed/lib/order"
+	"github.com/reiver/socialfed/lib/order"
 )
 
 const (

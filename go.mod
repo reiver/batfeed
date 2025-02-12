@@ -1,6 +1,6 @@
-module github.com/reiver/batfeed
+module github.com/reiver/socialfed
 
-go 1.22.4
+go 1.23.4
 
 require (
 	github.com/reiver/go-did v0.0.0-20240909180315-5cf2890e367b

@@ -3,10 +3,10 @@ package main
 import (
 	"net/http"
 
-	"github.com/reiver/batfeed/cfg"
-	"github.com/reiver/batfeed/srv/http"
-	"github.com/reiver/batfeed/srv/log"
-	_ "github.com/reiver/batfeed/www" // this import activates all the HTTP handlers.
+	"github.com/reiver/socialfed/cfg"
+	"github.com/reiver/socialfed/srv/http"
+	"github.com/reiver/socialfed/srv/log"
+	_ "github.com/reiver/socialfed/www" // this import activates all the HTTP handlers.
 )
 
 func webserve() {

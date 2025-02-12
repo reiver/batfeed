@@ -1,7 +1,7 @@
-# batfeed
+# socialfed
 
 A back-end for something.
 
 ## Author
 
-Software **batfeed** was written by [Charles Iliya Krempeaux](http://reiver.link)
+Software **socialfed** was written by [Charles Iliya Krempeaux](http://reiver.link)

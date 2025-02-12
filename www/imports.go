@@ -1,7 +1,7 @@
 package verboten
 
 import (
-	_ "github.com/reiver/batfeed/www/feeds"
-	_ "github.com/reiver/batfeed/www/well-known"
-	_ "github.com/reiver/batfeed/www/xrpc"
+	_ "github.com/reiver/socialfed/www/feeds"
+	_ "github.com/reiver/socialfed/www/well-known"
+	_ "github.com/reiver/socialfed/www/xrpc"
 )

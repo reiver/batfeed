@@ -14,10 +14,10 @@ import (
 	libpath "github.com/reiver/go-path"
 	"github.com/reiver/go-tootns"
 
-	"github.com/reiver/batfeed/lib/feeds"
-	"github.com/reiver/batfeed/srv/feed"
-	"github.com/reiver/batfeed/srv/http"
-	"github.com/reiver/batfeed/srv/log"
+	"github.com/reiver/socialfed/lib/feeds"
+	"github.com/reiver/socialfed/srv/feed"
+	"github.com/reiver/socialfed/srv/http"
+	"github.com/reiver/socialfed/srv/log"
 )
 
 const path string = "/feeds/{feed-name}"

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/reiver/batfeed/srv/log"
+	"github.com/reiver/socialfed/srv/log"
 
 	// Do this so we get errors early.
-	_ "github.com/reiver/batfeed/srv/db"
+	_ "github.com/reiver/socialfed/srv/db"
 )
 
 func main() {

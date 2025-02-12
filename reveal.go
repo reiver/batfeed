@@ -3,8 +3,8 @@ package main
 import (
 	"path/filepath"
 
-	"github.com/reiver/batfeed/cfg"
-	"github.com/reiver/batfeed/srv/log"
+	"github.com/reiver/socialfed/cfg"
+	"github.com/reiver/socialfed/srv/log"
 )
 
 func reveal() {

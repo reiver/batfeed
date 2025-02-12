@@ -1,7 +1,7 @@
 package cfg
 
 import (
-	"github.com/reiver/batfeed/env"
+	"github.com/reiver/socialfed/env"
 )
 
 func FeedsDirectory() string {

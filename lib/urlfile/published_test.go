@@ -3,7 +3,7 @@ package liburlfile_test
 import (
 	"testing"
 
-	"github.com/reiver/batfeed/lib/urlfile"
+	"github.com/reiver/socialfed/lib/urlfile"
 )
 
 func TestPublished(t *testing.T) {

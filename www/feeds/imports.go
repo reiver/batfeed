@@ -1,5 +1,5 @@
 package verboten
 
 import (
-	_ "github.com/reiver/batfeed/www/feeds/FEED-NAME"
+	_ "github.com/reiver/socialfed/www/feeds/FEED-NAME"
 )

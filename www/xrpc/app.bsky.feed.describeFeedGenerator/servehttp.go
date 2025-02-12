@@ -10,9 +10,9 @@ import (
 	"github.com/reiver/go-errhttp"
 	"github.com/reiver/go-json"
 
-	"github.com/reiver/batfeed/srv/db"
-	"github.com/reiver/batfeed/srv/http"
-	"github.com/reiver/batfeed/srv/log"
+	"github.com/reiver/socialfed/srv/db"
+	"github.com/reiver/socialfed/srv/http"
+	"github.com/reiver/socialfed/srv/log"
 )
 
 const path string = "/xrpc/app.bsky.feed.describeFeedGenerator"

@@ -1,5 +1,5 @@
 package verboten
 
 import (
-	_ "github.com/reiver/batfeed/www/xrpc/app.bsky.feed.describeFeedGenerator"
+	_ "github.com/reiver/socialfed/www/xrpc/app.bsky.feed.describeFeedGenerator"
 )
