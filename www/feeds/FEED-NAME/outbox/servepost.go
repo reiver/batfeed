@@ -192,7 +192,7 @@ func servePOST(responsewriter http.ResponseWriter, request *httpsrv.Parameterize
 	var location string
 	{
 		var dir string = libpath.Parent(httprequesturl.Path)
-		var locpath string = libpath.Join(dir, "object", liburlfile.Slug(internalFileName))
+		var locpath string = libpath.Join(dir, "objects", liburlfile.Slug(internalFileName))
 
 		if "" == locpath {
 			errhttp.ErrHTTPInternalServerError.ServeHTTP(responsewriter, request.HTTPRequest())
