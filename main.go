@@ -11,7 +11,7 @@ func main() {
 	log := logsrv.Prefix("main").Begin()
 	defer log.End()
 
-	log.Inform("BatFeed ⚡")
+	log.Inform("socialfed ⚡")
 	shout()
 
 	log.Inform("Let me show you something…")
