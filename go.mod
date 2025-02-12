@@ -5,7 +5,7 @@ go 1.23.4
 require (
 	github.com/reiver/go-act v0.0.0-20250208135856-bbd95ecc4086
 	github.com/reiver/go-actfeed v0.0.0-20250208023337-787ddf9b0444
-	github.com/reiver/go-asns v0.0.0-20250211134640-18805a11102f
+	github.com/reiver/go-asns v0.0.0-20250212030841-1d6eedc2ed75
 	github.com/reiver/go-did v0.0.0-20240909180315-5cf2890e367b
 	github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f
 	github.com/reiver/go-errhttp v1.1.1-0.20240827033330-e4ea888843cc

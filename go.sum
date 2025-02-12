@@ -20,8 +20,8 @@ github.com/reiver/go-actfeed v0.0.0-20250208023337-787ddf9b0444 h1:AmybGa1nTxRK1
 github.com/reiver/go-actfeed v0.0.0-20250208023337-787ddf9b0444/go.mod h1:8ZMjBiEfC+VpUWGsH7p+45Pa+E84Vzqxp36o2mdGPXE=
 github.com/reiver/go-arbitrary v0.0.0-20240825124726-ee94c1a159e0 h1:io5YaR8tDHrGQh08dzH2SfXtCxv2zffWjov4EOe0lOY=
 github.com/reiver/go-arbitrary v0.0.0-20240825124726-ee94c1a159e0/go.mod h1:g1+Kow7vEx5zz1NxFUe5QZMJlMZMStzNbMoZ4J3C3oY=
-github.com/reiver/go-asns v0.0.0-20250211134640-18805a11102f h1:t9gYiVJ992ZvPOeiSlQUi8Xqlpsa16DbGFqEzZ6Sr5Q=
-github.com/reiver/go-asns v0.0.0-20250211134640-18805a11102f/go.mod h1:XOQCTfIFBnWbg3gTvkhShJoAGNV8jsnc1CwmRIIME5Q=
+github.com/reiver/go-asns v0.0.0-20250212030841-1d6eedc2ed75 h1:73Yo9f02BLLdoni2npd+BTzq1SFYDAWuZxI4qyQ4WD4=
+github.com/reiver/go-asns v0.0.0-20250212030841-1d6eedc2ed75/go.mod h1:XOQCTfIFBnWbg3gTvkhShJoAGNV8jsnc1CwmRIIME5Q=
 github.com/reiver/go-did v0.0.0-20240909180315-5cf2890e367b h1:6DuKsib9J8UMDP0MpQtdEZo/LrQsfek8zo/jyufocSs=
 github.com/reiver/go-did v0.0.0-20240909180315-5cf2890e367b/go.mod h1:Eg8x7rQRXPU1uFolvyedyvE+b9kaUXutVfkwMYCF7hU=
 github.com/reiver/go-erorr v0.0.0-20240801233437-8cbde6d1fa3f h1:D1QSxKHm8U73XhjsW3SFLkT0zT5pKJi+1KGboMhY1Rk=
