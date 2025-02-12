@@ -1,5 +1,5 @@
 package verboten
 
 import (
-	_ "github.com/reiver/socialfed/www/feeds/FEED-NAME/outbox"
+	_ "github.com/reiver/socialfed-api/www/feeds/FEED-NAME/outbox"
 )

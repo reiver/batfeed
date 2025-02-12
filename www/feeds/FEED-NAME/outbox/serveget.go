@@ -10,10 +10,10 @@ import (
 	"github.com/reiver/go-opt"
 	libpath "github.com/reiver/go-path"
 
-	"github.com/reiver/socialfed/lib/feeds"
-	"github.com/reiver/socialfed/lib/order"
-	"github.com/reiver/socialfed/srv/http"
-	"github.com/reiver/socialfed/srv/log"
+	"github.com/reiver/socialfed-api/lib/feeds"
+	"github.com/reiver/socialfed-api/lib/order"
+	"github.com/reiver/socialfed-api/srv/http"
+	"github.com/reiver/socialfed-api/srv/log"
 )
 
 func serveGET(responsewriter http.ResponseWriter, request *httpsrv.ParameterizedRequest, feedname string, feed libfeeds.Feed) {

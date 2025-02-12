@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/reiver/socialfed/srv/log"
+	"github.com/reiver/socialfed-api/srv/log"
 
 	// Do this so we get errors early.
-	_ "github.com/reiver/socialfed/srv/db"
+	_ "github.com/reiver/socialfed-api/srv/db"
 )
 
 func main() {

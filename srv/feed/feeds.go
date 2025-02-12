@@ -3,8 +3,8 @@ package feedsrv
 import (
 	"fmt"
 
-	"github.com/reiver/socialfed/cfg"
-	"github.com/reiver/socialfed/lib/feeds"
+	"github.com/reiver/socialfed-api/cfg"
+	"github.com/reiver/socialfed-api/lib/feeds"
 )
 
 var Feeds libfeeds.Feeds

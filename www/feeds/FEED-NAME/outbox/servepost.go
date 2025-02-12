@@ -9,10 +9,10 @@ import (
 	"github.com/reiver/go-http400"
 	libpath "github.com/reiver/go-path"
 
-	"github.com/reiver/socialfed/lib/feeds"
-	"github.com/reiver/socialfed/lib/urlfile"
-	"github.com/reiver/socialfed/srv/http"
-	"github.com/reiver/socialfed/srv/log"
+	"github.com/reiver/socialfed-api/lib/feeds"
+	"github.com/reiver/socialfed-api/lib/urlfile"
+	"github.com/reiver/socialfed-api/srv/http"
+	"github.com/reiver/socialfed-api/srv/log"
 )
 
 func servePOST(responsewriter http.ResponseWriter, request *httpsrv.ParameterizedRequest, feedname string, feed libfeeds.Feed) {

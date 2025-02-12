@@ -6,10 +6,10 @@ import (
 	"github.com/reiver/go-errhttp"
 	"github.com/reiver/go-erorr"
 
-	"github.com/reiver/socialfed/lib/feeds"
-	"github.com/reiver/socialfed/srv/feed"
-	"github.com/reiver/socialfed/srv/http"
-	"github.com/reiver/socialfed/srv/log"
+	"github.com/reiver/socialfed-api/lib/feeds"
+	"github.com/reiver/socialfed-api/srv/feed"
+	"github.com/reiver/socialfed-api/srv/http"
+	"github.com/reiver/socialfed-api/srv/log"
 )
 
 const path string = "/feeds/{feed-name}/outbox"

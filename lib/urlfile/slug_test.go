@@ -3,7 +3,7 @@ package liburlfile_test
 import (
 	"testing"
 
-	"github.com/reiver/socialfed/lib/urlfile"
+	"github.com/reiver/socialfed-api/lib/urlfile"
 )
 
 func TestSlug(t *testing.T) {

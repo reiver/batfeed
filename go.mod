@@ -1,4 +1,4 @@
-module github.com/reiver/socialfed
+module github.com/reiver/socialfed-api
 
 go 1.23.4
 

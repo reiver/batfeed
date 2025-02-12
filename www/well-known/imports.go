@@ -1,5 +1,5 @@
 package verboten
 
 import (
-	_ "github.com/reiver/socialfed/www/well-known/did.json"
+	_ "github.com/reiver/socialfed-api/www/well-known/did.json"
 )

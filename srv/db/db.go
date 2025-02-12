@@ -6,8 +6,8 @@ import (
 	"github.com/reiver/go-erorr"
 	_ "modernc.org/sqlite"
 
-	"github.com/reiver/socialfed/cfg"
-	"github.com/reiver/socialfed/srv/log"
+	"github.com/reiver/socialfed-api/cfg"
+	"github.com/reiver/socialfed-api/srv/log"
 )
 
 var db *sql.DB

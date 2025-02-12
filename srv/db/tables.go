@@ -3,7 +3,7 @@ package dbsrv
 import (
 	"database/sql"
 
-	"github.com/reiver/socialfed/srv/log"
+	"github.com/reiver/socialfed-api/srv/log"
 )
 
 func initTables(database *sql.DB) error {

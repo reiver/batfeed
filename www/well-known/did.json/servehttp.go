@@ -10,8 +10,8 @@ import (
 	"github.com/reiver/go-errhttp"
 	"github.com/reiver/go-json"
 
-	"github.com/reiver/socialfed/srv/http"
-	"github.com/reiver/socialfed/srv/log"
+	"github.com/reiver/socialfed-api/srv/http"
+	"github.com/reiver/socialfed-api/srv/log"
 )
 
 const path string = "/.well-known/did.json"

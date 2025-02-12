@@ -3,7 +3,7 @@ package cfg
 import (
 	"fmt"
 
-	"github.com/reiver/socialfed/env"
+	"github.com/reiver/socialfed-api/env"
 )
 
 func WebServerTCPAddress() string {

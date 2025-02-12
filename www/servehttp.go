@@ -6,7 +6,7 @@ import (
 
 	"github.com/reiver/go-erorr"
 
-	"github.com/reiver/socialfed/srv/http"
+	"github.com/reiver/socialfed-api/srv/http"
 )
 
 const path string = "/"
